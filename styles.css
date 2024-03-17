@@ -1,0 +1,504 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+
+:root {
+    --arrow-bg: rgba(255, 255, 255, 0.3);
+    --arrow-icon: url('https://upload.wikimedia.org/wikipedia/commons/9/9d/Caret_down_font_awesome_whitevariation.svg');
+    --option-bg: white;
+    --select-bg: rgba(255, 255, 255, 0.2);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-transition: all .2s;
+  -moz-transition: all .2s;
+  -ms-transition: all .2s;
+  -o-transition: all .2s;
+  transition: all .2s;
+}
+
+
+html, body {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    padding: 0;
+    margin: 0;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #fff;
+    font-family: 'Poppins', sans-serif;
+}
+
+body{
+  background: -webkit-linear-gradient(90deg, #EC6F66 10%, #F3A183 90%); /* Chrome 10+, Saf5.1+ */
+  background:    -moz-linear-gradient(90deg, #EC6F66 10%, #F3A183 90%); /* FF3.6+ */
+  background:     -ms-linear-gradient(90deg, #EC6F66 10%, #F3A183 90%); /* IE10 */
+  background:      -o-linear-gradient(90deg, #EC6F66 10%, #F3A183 90%); /* Opera 11.10+ */
+  background:         linear-gradient(90deg, #EC6F66 10%, #F3A183 90%); /* W3C */
+  font-family: 'Raleway', sans-serif; 
+  font-size: 20px; 
+}
+
+#view {
+    margin-top: 30px;
+}
+
+
+#mazeContainer {
+    top: 15px;
+    opacity: 0;
+    display: inline-block;
+    margin: auto;
+    border-radius: 10px;
+}
+
+
+select {
+    /* Reset */
+    appearance: none;
+    border: 0;
+    outline: 0;
+    font: inherit;
+    /* Personalize */
+    width: 20rem;
+    padding: 1rem 4rem 1rem 1rem;
+    background: var(--arrow-icon) no-repeat right 0.8em center / 1.4em,
+      linear-gradient(to left, var(--arrow-bg) 3em, var(--select-bg) 3em);
+    color: white;
+    border-radius: 0.25em;
+    box-shadow: 0 0 1em 0 rgba(141, 24, 24, 0.966);
+    cursor: pointer;
+    /* Remove IE arrow */
+    &::-ms-expand {
+      display: none;
+    }
+    /* Remove focus outline */
+    &:focus {
+      outline: none;
+    }
+    /* <option> colors */
+    option {
+      color: inherit;
+      background-color: var(--option-bg);
+    }
+}
+
+/* boton de Iniciar*/
+.btn-12,
+.btn-12 *,
+.btn-12 :after,
+.btn-12 :before,
+.btn-12:after,
+.btn-12:before {
+  border: 0 solid;
+  box-sizing: border-box;
+}
+
+.btn-12 {
+    position: relative; /* Cambiado a absoluta */
+    top: 300px;
+    z-index: 2; /* Asegura que el botón esté delante del contenedor */
+    width: 228px; /* Adopta el ancho del contenedor */
+    height: 228px; /* Adopta la altura del contenedor */
+    margin: 0 auto;
+}
+
+.btn-12 {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-appearance: button;
+  background-color: #000;
+  background-image: none;
+  color: #fff;
+  cursor: pointer;
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif,
+    Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+  font-size: 100%;
+  font-weight: 900;
+  line-height: 1.5;
+  margin: 0;
+  -webkit-mask-image: -webkit-radial-gradient(#413833, #bdbcb6);
+  padding: 0;
+  text-transform: uppercase;
+}
+
+.btn-12:disabled {
+  cursor: default;
+}
+
+.btn-12:-moz-focusring {
+  outline: auto;
+}
+
+.btn-12 svg {
+  display: block;
+  vertical-align: middle;
+}
+
+.btn-12 [hidden] {
+  display: none;
+}
+
+.btn-12 {
+  border-radius: 99rem;
+  border-width: 2px;
+  overflow: hidden;
+  padding: 0rem;
+  position: relative;
+}
+
+.btn-12 span {
+  mix-blend-mode: difference;
+}
+
+.btn-12:after,
+.btn-12:before {
+  background: linear-gradient(
+    90deg,
+    #fff 25%,
+    transparent 0,
+    transparent 50%,
+    #fff 0,
+    #fff 75%,
+    transparent 0
+  );
+  content: "";
+  inset: 0;
+  position: absolute;
+  transform: translateY(var(--progress, 100%));
+  transition: transform 0.2s ease;
+}
+
+.btn-12:after {
+  --progress: -100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0,
+    transparent 25%,
+    #fff 0,
+    #fff 50%,
+    transparent 0,
+    transparent 75%,
+    #fff 0
+  );
+  z-index: -1;
+}
+
+.btn-12:hover:after,
+.btn-12:hover:before {
+  --progress: 0;
+}
+/*Fin boton Iniciar */
+
+.move-right {
+    animation: moveRight 0.8s ease forwards;
+}
+
+@keyframes moveRight {
+    100% {
+      transform: translateX(500px);
+
+    }
+}
+#mazeContainer #mazeCanvas {
+    margin: 0;
+    display: block;
+    border: solid 2px black;
+    height: 750px;
+    width: 750px; 
+}
+input, select {
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.30);
+    height: 45px;
+    width: 150px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    display: inline-block;
+    font-size: 15px;
+    text-align: center;
+    text-decoration: none;
+    appearance: none;
+}
+input:hover, select:hover {
+	background-color: rgba(0, 0, 0, 0.70);
+}
+input:active, select:active {
+	background-color: black;
+}
+input:focus, select:focus {
+	outline: none;
+}
+.custom-select {
+	display: inline-block;
+}
+.custom-select select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-repeat: no-repeat;
+    background-position: 125px center;
+}
+
+.time-up-message {
+  display: none; /* Por defecto, ocultar el mensaje */
+}
+
+.time-up-message.show {
+  display: block; /* Mostrar el mensaje cuando se aplica la clase "show" */
+}
+
+
+.time-up-message {
+  position: relative;
+  top: 569px;
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+  border-radius: 0.25rem;
+  padding: 0.75rem 1.25rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-align: center;
+  z-index: 1001; 
+}
+
+
+
+
+
+#Message-Container {
+    visibility: hidden;
+    color: white;
+    display: block;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.30);
+    z-index: 2;
+}
+
+#mazeContainer {
+    position: relative; /* Cambiado a relativo */
+    z-index: 1; /* Asegura que el contenedor de laberinto esté detrás */
+}
+#Message-Container #message {
+    width: 300px;
+    height: 300px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-left: -150px;
+    margin-top: -150px;
+}
+#page {
+	text-align: center;
+	height: auto;
+	width: auto;
+	margin: auto;
+}
+#page #menu{
+    margin: auto;
+    padding: 10px;
+    height: 65px;
+    box-sizing: border-box;
+}
+#page #menu h1 {
+    margin: 0;
+    margin-bottom: 10px;
+    font-weight: 600;
+    font-size: 3.2rem;
+}
+#page #view {
+    position: absolute;
+    top: 65px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: auto;
+}
+.border {
+    border: 10px black solid;
+    border-radius: 10px;
+}
+
+#instructions {
+    margin-top: 800px;
+}
+ 
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 1250px) {
+	input, select {
+	    width: 120px;
+	}
+  #mazeContainer #mazeCanvas {
+    margin: 0;
+    display: block;
+    border: solid 2px black;
+    height: 600px;
+    width: 600px;
+  }
+  .btn-12 {
+    position: relative;
+    z-index: 2;
+    top: 210px;
+    width: 200px;
+    height: 200px;
+    margin: 0 auto;
+  }
+  @keyframes moveRight {
+    100% {
+      transform: translateX(439px);
+    }
+  }
+}
+
+@media only screen and (max-width: 1000px) {
+	input, select {
+	    width: 120px;
+	}
+  #mazeContainer #mazeCanvas {
+    margin: 0;
+    display: block;
+    border: solid 2px black;
+    height: 550px;
+    width: 550px;
+  }
+  .btn-12 {
+    position: relative;
+    top: 188px;
+    z-index: 2;
+    width: 150px;
+    height: 150px;
+    margin: 0 auto;
+  }
+  @keyframes moveRight {
+    100% {
+      transform: translateX(360px);
+    }
+  }
+}
+
+@media only screen and (max-width: 787px) {
+	input, select {
+	    width: 120px;
+	}
+  #mazeContainer #mazeCanvas {
+    margin: 0;
+    display: block;
+    border: solid 2px black;
+    height: 470px;
+    width: 470px;
+  }
+  .btn-12 {
+    position: relative;
+    top: 188px;
+    z-index: 2;
+    width: 130px;
+    height: 130px;
+    margin: 0 auto;
+  }
+  @keyframes moveRight {
+    100% {
+      transform: translateX(310px);
+    }
+  }
+}
+
+@media only screen and (max-width: 412px) {
+	input, select {
+	    width: 120px;
+	}
+  #mazeContainer {
+    top: 77px;
+  }
+  #mazeContainer #mazeCanvas {
+    margin: 0;
+    display: block;
+    border: solid 2px black;
+    height: 200px;
+    width: 200px;
+  }
+  .btn-12 {
+    position: relative;
+    top: 188px;
+    z-index: 2;
+    width: 50px;
+    height: 50px;
+    margin: 0 auto;
+  }
+
+  #timer{
+    position: relative;
+    width: 10px;
+    height: 10px;
+    top: 289px;
+  }
+  @keyframes moveRight {
+    100% {
+      transform: translateX(140px);
+    }
+  }
+  .time-up-message {
+    position: relative;
+    top: 500px;
+  }
+  .btn-12{
+    font-size: 30%;
+    font-weight: 300;
+  }
+}
+
+@media only screen and (max-width: 360px) {
+	input, select {
+	    width: 120px;
+	}
+  #mazeContainer {
+    top: 77px;
+  }
+  #mazeContainer #mazeCanvas {
+    margin: 0;
+    display: block;
+    border: solid 2px black;
+    height: 200px;
+    width: 200px;
+  }
+  .btn-12 {
+    position: relative;
+    top: 188px;
+    z-index: 2;
+    width: 50px;
+    height: 50px;
+    margin: 0 auto;
+  }
+
+  #timer{
+    position: relative;
+    width: 10px;
+    height: 10px;
+    top: 289px;
+  }
+  @keyframes moveRight {
+    100% {
+      transform: translateX(140px);
+    }
+  }
+  .time-up-message {
+    position: relative;
+    top: 500px;
+  }
+  .btn-12{
+    font-size: 30%;
+    font-weight: 300;
+  }
+}

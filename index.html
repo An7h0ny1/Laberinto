@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Definición del título de la página -->
+  <title>Laberinto</title>
+  <!-- Enlace al archivo de estilos CSS -->
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+
+  <!-- Contenedor principal de la página -->
+  <div id="page">
+
+    <!-- Contenedor del mensaje de felicitaciones -->
+    <div id="Message-Container">
+      <div id="message">
+        <!-- Título del mensaje de felicitaciones -->
+        <h1>Felicidades!</h1>
+        <!-- Mensaje de éxito -->
+        <p>Lo haz logrado.</p>
+        <!-- Contenedor para mostrar el número de movimientos realizados -->
+        <p id="moves"></p>
+        <!-- Botón para cerrar el mensaje -->
+        <input id="okBtn" type="button" onclick="toggleVisablity('Message-Container')" value="Cool!" />
+      </div>
+    </div>
+
+    <!-- Menú de opciones -->
+    <div id="menu">
+      <!-- Selector de dificultad -->
+      <div class="custom-select">
+        <select id="diffSelect" >
+          <!-- Opciones de dificultad -->
+          <option value="10">Easy</option>
+          <option value="15">Medium</option>
+          <option value="25">Hard</option>
+          <option value="38">Extreme</option>                                      
+        </select> 
+      </div>
+      
+      <!-- Botones de pausa y reanudación -->
+      <input id="pauseBtn" type="button"  value="Pausar" />
+      <input id="restartBtn" type="button"  value="Reanudar" />
+      
+      <!-- Temporizador -->
+      <h1 id="timer" class="timer"></h1>
+    </div>
+
+    <!-- Botón para iniciar el laberinto -->
+    <button id="startMazeBtn" class="btn-12" onclick="makeMaze()"><span>¿Comenzamos...?</span></button>
+  
+    <!-- Mensaje para mostrar cuando se acaba el tiempo -->
+    <div id="timeUpMessage" class="time-up-message">Oh.. lo siento, intenta de nuevo</div>
+
+    <!-- Contenedor del laberinto -->
+    <div id="view">
+      <div id="mazeContainer">
+        <!-- Canvas donde se dibuja el laberinto -->
+        <canvas id="mazeCanvas" class="border"></canvas>
+      </div>
+    </div>
+
+    <!-- Instrucciones para jugar -->
+    <p id="instructions">Usa las flechas para mover la bola amarilla!</p>
+
+  </div>
+
+  <!-- Script de jQuery -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!-- Script de jQuery Touch Swipe -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.touchswipe/1.6.18/jquery.touchSwipe.min.js"></script>
+  
+  <!-- Script principal -->
+  <script src="./script.js"></script>
+  
+  <!-- Script adicional para animación del botón de inicio -->
+  <script>
+    document.getElementById("startMazeBtn").addEventListener("click", function() {
+      this.classList.add("move-right");
+      document.getElementById("timer").classList.add("move-right");
+    });
+    document.getElementById("startMazeBtn").addEventListener("animationend", function() {
+      this.innerHTML = "<span>Iniciar</span>";
+    });
+  </script>
+</body>
+</html>
